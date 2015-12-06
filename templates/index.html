@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class="masthead clearfix">
+    <div class="inner">
+        <h3 class="masthead-brand">PiLights</h3>
+        <nav>
+            <ul class="nav masthead-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <!--<li><a href="#">Features</a></li>-->
+                <li><a href="mailto:kevinkhill@gmail.com">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<div class="inner cover">
+    <h1 class="cover-heading">Light Control</h1>
+    <p class="lead">Welcome! This is a simple interface for controlling my outside Christmas light with my phone. The server is powered by <a href="http://flask.pocoo.org/">Flask</a> and Nginx with a lovely <a href="http://getbootstrap.com/">Bootstrap UI</a>. This was all a fun project to learn <a href="https://www.python.org/">Python</a> and simple electronics. I designed the outlet box with a relay embedded inside and connected it to the Raspberry Pi's GPIO pins.</p>
+    
+    <p class="lead">
+        <input type="checkbox" name="light-ctrl" checked>
+        <!--<a href="#" class="btn btn-lg btn-default">Learn more</a>-->
+    </p>
+</div>
+
+{% endblock %}
+
+
+{% block script %}
+    
+<script type="text/javascript">
+    $("[name='light-ctrl']").bootstrapSwitch().on('switchChange.bootstrapSwitch', function(event, state) {
+        //console.log(this); // DOM element
+        //console.log(event); // jQuery event
+        //console.log(state); // true | false
+        
+        if (state) {
+            $.get("{{ url_for('lights_on') }}");
+        } else {
+            $.get("{{ url_for('lights_off') }}");
+        }
+    });
+</script>
+
+{% endblock %}
