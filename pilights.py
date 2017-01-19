@@ -17,7 +17,7 @@ def lights_on():
     relay.on()
     return redirect('/')
 
-@app.route('lights/off')
+@app.route('/lights/off')
 def lights_off():
     relay.off()
     return redirect('/')
